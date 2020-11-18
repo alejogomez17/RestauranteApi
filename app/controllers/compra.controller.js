@@ -1,6 +1,6 @@
 const Compra = require('../models/compra.model.js');
 
-// // Create and save a new Plato
+// // Create and save a new Compra
 exports.create = (req, res) => {
     console.log("Creating a Compra ... soon!");
     if (Object.keys(req.body).length === 0) {
@@ -8,52 +8,19 @@ exports.create = (req, res) => {
             message: "Compra data can not be empty"
         });
     }
-    // Create a new Plato with request's data    
+    // Create a new Compra with request's data    
     const compra = new Compra({
         usuario: req.body.usuario,
         fecha: req.body.fecha,
         estado: 'creada'
     });
-    // Save the Plato in the database    
+    // Save the Compra in the database    
     compra.save()
         .then(data => {
             res.status(200).send(data);
         }).catch(err => {
             res.status(500).send({
                 message: err.message || "Something wrong occurred while creating the record."
-            });
-        });
-};
-
-// Retrieve and list all Platos
-exports.findAllByRestaurant = (req, res) => {
-    Plato.find({ restaurante: req.params.idRestaurante })
-        .then(platos => {
-            res.status(200).send(platos);
-        }).catch(err => {
-            res.status(500).send({
-                message: "Something wrong occurred while retrieving the records."
-            });
-        });
-};
-
-exports.findOneByRestauranteAndPlato = (req, res) => {
-    Plato.findOne({ _id: req.params.idPlato, restaurante: req.params.idRestaurante })
-        .then(plato => {
-            if (!plato) {
-                return res.status(404).send({
-                    message: "Plato not found with id:" + req.params.id
-                });
-            }
-            res.status(200).send(plato);
-        }).catch(err => {
-            if (err.kind === 'ObjectId') {
-                return res.status(404).send({
-                    message: "Plato not found with id:" + req.params.id
-                });
-            }
-            return res.status(500).send({
-                message: "Something wrong ocurred while retrieving the record with id:" + req.params.id
             });
         });
 };
