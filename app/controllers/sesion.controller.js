@@ -13,23 +13,14 @@ exports.create = (req, res) => {
     }
     var correo = req.body.correo;
     var clave = req.body.clave;
-    Usuario.findOne({ "correo": correo}, function (err, usuarioLog) {
-        if (err) {
-            if (err.kind === 'ObjectId') {
+    Usuario.findOne({ correo: correo })
+        .then(UsuarioLog => {
+            if (!UsuarioLog) {
                 return res.status(404).send({
                     message: "Usuario not found with correo: " + correo
                 });
             }
-            return res.status(500).send({
-                message: "Something wrong ocurred while retrieving the record with correo: " + correo
-            });
-        }
-        if (!usuarioLog) {
-            return res.status(404).send({
-                message: "Usuario not found with correo: " + correo
-            });
-        } else {
-            if (usuarioLog.clave != clave) {
+            if (UsuarioLog.clave != clave) {
                 return res.status(401).send({
                     message: "Clave is incorrect"
                 });
@@ -38,7 +29,7 @@ exports.create = (req, res) => {
             // Create a new Sesion with usuarioLog data    
             const sesion = new Sesion({
                 codigoSesion: codigoSesion,
-                usuario: usuarioLog._id,
+                usuario: UsuarioLog._id,
                 fecha: new Date()
             });
             // Save the Sesion in the database    
@@ -50,8 +41,16 @@ exports.create = (req, res) => {
                         message: err.message || "Something wrong occurred while creating the record."
                     });
                 });
-        }
-    });
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Usuario not found with correo: " + correo
+                });
+            }
+            return res.status(500).send({
+                message: "Something wrong ocurred while retrieving the record with correo:" + correo
+            });
+        });
 };
 function aleatorio(min, max) {
     return Math.round(Math.random() * (max - min) + min);
