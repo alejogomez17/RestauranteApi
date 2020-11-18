@@ -8,13 +8,15 @@ exports.create = (req, res) => {
             message: "Compra data can not be empty"
         });
     }
+    const compra = req.params.idCompra;
     // Create a new Compraplato with request's data    
     const compraplato = new Compraplato({
-        usuario: req.body.compra,
-        fecha: req.body.plato
+        plato: req.body.plato,
+        compra: compra,
+        cantidad: req.body.cantidad
     });
     // Save the Compraplato in the database    
-    compra.save()
+    compraplato.save()
         .then(data => {
             res.status(200).send(data);
         }).catch(err => {

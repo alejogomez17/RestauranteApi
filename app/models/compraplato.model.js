@@ -11,6 +11,10 @@ const CompraplatoSchema = mongoose.Schema({
         type: Schema.ObjectId,//Tipo de plato es ObjectId
         ref: 'Plato',//La referencia es un plato
         required: true
+    },
+    cantidad: {
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true
