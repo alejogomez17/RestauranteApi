@@ -40,6 +40,7 @@ exports.findAll = (req, res) => {
             });
         });
 };
+
 // // Get a single Usuario by its id
 // exports.findOne = (req, res) => {
 //     Usuario.findById(req.params.id)

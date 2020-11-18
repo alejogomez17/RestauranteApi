@@ -7,7 +7,7 @@ module.exports = (app) => {
     // Get a single Product by id    product
     // app.get('/usuarios/:id', usuarios.findOne);    
     // // Update a Product by id    
-    // app.put('/usuarios/:id', usuarios.update);    
+    // app.put('/usuarios/:id', usuarios.update);       
     // // Delete a Product by id    
     // app.delete('/usuarios/:id', usuarios.delete);
 }
