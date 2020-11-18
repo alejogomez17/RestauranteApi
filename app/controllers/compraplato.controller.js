@@ -27,39 +27,6 @@ exports.create = (req, res) => {
 };
 
 // Retrieve and list all Platos
-exports.findAllByRestaurant = (req, res) => {
-    Plato.find({ restaurante: req.params.idRestaurante })
-        .then(platos => {
-            res.status(200).send(platos);
-        }).catch(err => {
-            res.status(500).send({
-                message: "Something wrong occurred while retrieving the records."
-            });
-        });
-};
-
-exports.findOneByRestauranteAndPlato = (req, res) => {
-    Plato.findOne({ _id: req.params.idPlato, restaurante: req.params.idRestaurante })
-        .then(plato => {
-            if (!plato) {
-                return res.status(404).send({
-                    message: "Plato not found with id:" + req.params.id
-                });
-            }
-            res.status(200).send(plato);
-        }).catch(err => {
-            if (err.kind === 'ObjectId') {
-                return res.status(404).send({
-                    message: "Plato not found with id:" + req.params.id
-                });
-            }
-            return res.status(500).send({
-                message: "Something wrong ocurred while retrieving the record with id:" + req.params.id
-            });
-        });
-};
-
-// Retrieve and list all Platos
 exports.findAllByCompra = (req, res) => {
     Compraplato.find({ compra: req.params.id })
         .then(platos => {
