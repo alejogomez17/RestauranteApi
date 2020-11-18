@@ -33,6 +33,7 @@ var port = process.env.PORT || 3000;
 
 require('./app/routes/usuario.routes.js')(app);
 require('./app/routes/sesion.routes.js')(app);
+require('./app/routes/restaurante.routes.js')(app);
 
 app.get('/', (req, res) => {
     res.json({
