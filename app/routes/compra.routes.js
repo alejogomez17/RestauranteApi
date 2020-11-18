@@ -4,15 +4,15 @@ module.exports = (app) => {
     // Create a new Compra    
     app.post('/compras', compras.create);    
     // Create a new PlatoCompra    
-    app.post('/compras/:id/platos', compras.create);    
+    app.post('/compras/:idCompra/platos', compraPlato.create);    
     // List all usuarios    
     // app.get('/compras', compras.findAll);    
-    // Get a single Product by id    product
-    // app.get('/usuarios/:id', usuarios.findOne);    
-    // // Update a Product by id    
-    // app.put('/usuarios/:id', usuarios.update);       
+    // Get a single Compra by id    product
+    app.get('/compras/:id', compras.findOne);    
+    // Update a Product by id    
+    app.put('/compras/:id', compras.update);       
     // // Delete a Product by id    
     app.get('/compras/:id/platos', compraPlato.findAllByCompra);   
-     
+
     app.delete('/compras/:idCompraPlato/platos/:idPlato', compraPlato.deletePlatoFromCompra);
 }

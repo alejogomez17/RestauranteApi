@@ -27,7 +27,7 @@ exports.create = (req, res) => {
 
 // Retrieve and list all Platos
 exports.findAllByRestaurant = (req, res) => {
-    Plato.find({restaurante:req.params.idRestaurante})
+    Plato.find({ restaurante: req.params.idRestaurante })
         .then(platos => {
             res.status(200).send(platos);
         }).catch(err => {
@@ -38,7 +38,7 @@ exports.findAllByRestaurant = (req, res) => {
 };
 
 exports.findOneByRestauranteAndPlato = (req, res) => {
-    Plato.findOne({_id:req.params.idPlato, restaurante:req.params.idRestaurante})
+    Plato.findOne({ _id: req.params.idPlato, restaurante: req.params.idRestaurante })
         .then(plato => {
             if (!plato) {
                 return res.status(404).send({
@@ -54,6 +54,60 @@ exports.findOneByRestauranteAndPlato = (req, res) => {
             }
             return res.status(500).send({
                 message: "Something wrong ocurred while retrieving the record with id:" + req.params.id
+            });
+        });
+};
+
+// // Get a single Usuario by its id
+exports.findOne = (req, res) => {
+    Compra.findById(req.params.id)
+        .then(Compra => {
+            if (!Compra) {
+                return res.status(404).send({
+                    message: "Usuario not found with id:" + req.params.id
+                });
+            }
+            res.status(200).send(Compra);
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Usuario not found with id:" + req.params.id
+                });
+            }
+            return res.status(500).send({
+                message: "Something wrong ocurred while retrieving the record with id:" + req.params.id
+            });
+        });
+};
+
+// Update a Compra by its id
+exports.update = (req, res) => {
+    // Validate if the request's body is empty     
+    // (does not include required data)    
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).send({
+            message: "Compra data can not be empty"
+        });
+    }
+    // Find the Usuario and update it with the request body data    
+    Compra.findByIdAndUpdate(req.params.id, {
+        estado: req.body.estado
+    }, { new: true })
+        .then(Compra => {
+            if (!Compra) {
+                return res.status(404).send({
+                    message: "Usuario not found with id:" + req.params.id
+                });
+            }
+            res.status(200).send(Compra);
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Usuario not found with id:" + req.params.id
+                });
+            }
+            return res.status(500).send({
+                message: "Something wrong ocurred while updating the record with id:" + req.params.id
             });
         });
 };
