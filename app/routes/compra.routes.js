@@ -9,5 +9,5 @@ module.exports = (app) => {
     // // Update a Product by id    
     // app.put('/usuarios/:id', usuarios.update);       
     // // Delete a Product by id    
-    // app.delete('/usuarios/:id', usuarios.delete);
+    app.delete('/compras/:idCompra/platos/:idPlato', platos.deleteFromCompra);
 }

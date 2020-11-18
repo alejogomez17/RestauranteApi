@@ -30,7 +30,7 @@ exports.create = (req, res) => {
 
 // Retrieve and list all Platos
 exports.findAllByRestaurant = (req, res) => {
-    Plato.find({restaurante:req.params.idRestaurante})
+    Plato.find({ restaurante: req.params.idRestaurante })
         .then(platos => {
             res.status(200).send(platos);
         }).catch(err => {
@@ -41,7 +41,7 @@ exports.findAllByRestaurant = (req, res) => {
 };
 
 exports.findOneByRestauranteAndPlato = (req, res) => {
-    Plato.findOne({_id:req.params.idPlato, restaurante:req.params.idRestaurante})
+    Plato.findOne({ _id: req.params.idPlato, restaurante: req.params.idRestaurante })
         .then(plato => {
             if (!plato) {
                 return res.status(404).send({
