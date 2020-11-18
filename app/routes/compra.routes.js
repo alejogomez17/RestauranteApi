@@ -1,7 +1,7 @@
 module.exports = (app) => {    
     const compras = require('../controllers/compra.controller.js');    
     // Create a new Product    
-    // app.post('/compras', compras.create);    
+    app.post('/compras', compras.create);    
     // List all usuarios    
     // app.get('/compras', compras.findAll);    
     // Get a single Product by id    product

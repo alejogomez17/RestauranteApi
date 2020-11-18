@@ -1,24 +1,21 @@
-const Plato = require('../models/compra.model.js');
+const Compra = require('../models/compra.model.js');
 
 // // Create and save a new Plato
 exports.create = (req, res) => {
-    console.log("Creating a Plato ... soon!");
+    console.log("Creating a Compra ... soon!");
     if (Object.keys(req.body).length === 0) {
         return res.status(400).send({
-            message: "Plato data can not be empty"
+            message: "Compra data can not be empty"
         });
     }
-    const restaurante = req.params.idRestaurante;
     // Create a new Plato with request's data    
-    const plato = new Plato({
-        nombre: req.body.nombre,
-        presentacion: req.body.presentacion,
-        precio: req.body.precio,
-        categoria: req.body.categoria || null,
-        restaurante: restaurante
+    const compra = new Compra({
+        usuario: req.body.usuario,
+        fecha: req.body.fecha,
+        estado: 'creada'
     });
     // Save the Plato in the database    
-    plato.save()
+    compra.save()
         .then(data => {
             res.status(200).send(data);
         }).catch(err => {
